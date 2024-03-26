@@ -1,10 +1,16 @@
 const express = require('express');
 const app = express();
+const tasks = require('./routes/tasks');
 
-//routes
+// middleware
+app.use(express.json());
+
+// routes
 app.get('/npc-lookup', (req, res) => {
     res.send('NPC Lookup');
 });
+
+app.use('/api/v1/tasks', tasks);
 
 // app.get('/api/v1/tasks') - get all tasks
 // app.post('/api/v1/tasks') - create a new task
