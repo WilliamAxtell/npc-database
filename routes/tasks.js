@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {getAllTasks} = require('../controllers/tasks');
+const {getAllNpcs,
+       createNpc,
+       getNpc,
+       updateNpc,
+       deleteNpc
+      } = require('../controllers/tasks');
 
-router.route('/').get(getAllTasks);
+router.route('/').get(getAllNpcs).post(createNpc);
+router.route('/:id').get(getNpc).patch(updateNpc).delete(deleteNpc);
 
 module.exports = router;
