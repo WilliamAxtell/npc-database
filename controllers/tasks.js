@@ -7,7 +7,7 @@ const createNpc = (req, res) => {
 };
 
 const getNpc = (req, res) => {
-    res.send('get single npc');
+    res.json({id:req.params.id});
 };
 
 const updateNpc = (req, res) => {
