@@ -6,7 +6,7 @@ const {getAllNpcs,
        getNpc,
        updateNpc,
        deleteNpc
-      } = require('../controllers/tasks');
+      } = require('../controllers/npcs');
 
 router.route('/').get(getAllNpcs).post(createNpc);
 router.route('/:id').get(getNpc).patch(updateNpc).delete(deleteNpc);
