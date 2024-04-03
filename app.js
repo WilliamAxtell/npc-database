@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const npcs = require('./routes/npcs');
 const connectDB = require('./db/connect');
@@ -6,10 +7,11 @@ require('dotenv').config();
 
 // middleware
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.get('/npc-lookup', (req, res) => {
-    res.send('NPC Lookup');
+   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.use('/api/v1/npcs', npcs);
