@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 
 const NPCSchema = new mongoose.Schema({
-    title:String,
-    firstName:String,
-    lastName:String,
+    title:{
+        type: String,
+    },
+    firstName:{
+        type: String,
+        required: [true,'First Name is required'],
+        trim: true,
+    },
+    lastName:{
+        type: String,
+        required: [true,'Last Name is required'],
+        trim: true,
+    },
     folk:String,
     class:String,
     subclass:String,
