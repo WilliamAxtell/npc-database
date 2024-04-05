@@ -4,6 +4,8 @@ const app = express();
 const npcs = require('./routes/npcs');
 const connectDB = require('./db/connect');
 require('dotenv').config();
+const notFound = require('./middleware/not-found');
+const errorMiddleware = require('./middleware/error');
 
 // middleware
 app.use(express.json());
@@ -16,7 +18,10 @@ app.get('/npc-lookup', (req, res) => {
 
 app.use('/api/v1/npcs', npcs);
 
-const port = 3000;
+app.use(notFound);
+app.use(errorMiddleware);
+
+const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
