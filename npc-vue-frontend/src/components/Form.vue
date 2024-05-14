@@ -1,8 +1,51 @@
 <script setup>
+
     import { ref } from 'vue';
-    let title = '';
-    let description = '';
-    let level = 0;
+
+    const title = ref('');
+    const firstName = ref('');
+    const lastName = ref('');
+    const folk = ref('');
+    const classType = ref('');
+    const appearance = ref('');
+    const personality = ref('');
+    const equipment = ref('');
+    const speech = ref('');
+
+    function createNpc(e) {
+        e.preventDefault();
+        const npc = {
+            "title": title.value,
+            "firstName": firstName.value,
+            "lastName": lastName.value,
+            "folk": folk.value,
+            "class": classType.value,
+            "appearance": appearance.value,
+            "personality": personality.value,
+            "equipment": equipment.value,
+            "speech": speech.value
+        };
+        fetch('http://localhost:3000/api/v1/npcs', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(npc)
+        }).then((response) => response.json());
+        clearForms();
+    }
+
+    function clearForms() {
+        title.value = '';
+        firstName.value = '';
+        lastName.value = '';
+        folk.value = '';
+        classType.value = '';
+        appearance.value = '';
+        personality.value = '';
+        equipment.value = '';
+        speech.value = '';
+    }
 </script>
 
 <template>
@@ -25,7 +68,7 @@
                 <input type="text" id="equipment" name="equipment" v-model="equipment"><br/>
                 <label for="speech">Speech:</label>
                 <input type="text" id="speech" name="speech" v-model="speech"><br/>
-                <button type="submit">Submit</button>
+                <button type="submit" @click="createNpc">Submit</button>
         </form>
 </template>
 

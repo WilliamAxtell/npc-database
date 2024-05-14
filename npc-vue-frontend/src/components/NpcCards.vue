@@ -27,7 +27,9 @@ onMounted(async () => {
 
 <template>
   <div v-for="npc in npcs">
-    <div>{{ npc.title }}</div>
+    <div>
+      <h2>{{ npc.title }} {{ npc.firstName }} {{ npc.lastName }}</h2>
+    </div>
   </div>
 </template>
 
