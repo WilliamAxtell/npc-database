@@ -16,11 +16,8 @@ const NPCSchema = new mongoose.Schema({
     },
     folk:String,
     class:String,
-    subclass:String,
-    hair:String,
-    eyes:String,
-    generalAppearance:String,
-    personalityTraits:String,
+    appearance:String,
+    personality:String,
     equipment:String,
     speech:String,
 });
