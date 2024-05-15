@@ -12,18 +12,32 @@
     const equipment = ref('');
     const speech = ref('');
 
+    const formOffset = ref(true);
+
+    function callForm() {
+        if (formOffset.value) {
+            document.querySelector('.npc-form').style.left = 'calc(50% - 2rem)';
+            document.querySelector('.npc-form').style.transform = 'translate(-50%, 5%)';
+            document.querySelector('.arrow-left').style.transform = 'rotate(180deg)';
+        } else {
+            document.querySelector('.npc-form').style.left = 'calc(100% - 2rem)';
+            document.querySelector('.npc-form').style.transform = 'translate(0%, 5%)';
+            document.querySelector('.arrow-left').style.transform = 'rotate(0)';
+        }
+        formOffset.value = !formOffset.value;
+    }
+
     function createNpc(e) {
-        e.preventDefault();
         const npc = {
-            "title": title.value,
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "folk": folk.value,
-            "class": classType.value,
-            "appearance": appearance.value,
-            "personality": personality.value,
-            "equipment": equipment.value,
-            "speech": speech.value
+            "title": capUp(title.value).trim(),
+            "firstName": capUp(firstName.value).trim(),
+            "lastName": capUp(lastName.value).trim(),
+            "folk": capUp(folk.value).trim(),
+            "class": capUp(classType.value).trim(),
+            "appearance": appearance.value.trim(),
+            "personality": personality.value.trim(),
+            "equipment": equipment.value.trim(),
+            "speech": speech.value.trim()
         };
         fetch('http://localhost:3000/api/v1/npcs', {
             headers: {
@@ -46,32 +60,128 @@
         equipment.value = '';
         speech.value = '';
     }
+
+    function capUp(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 </script>
 
 <template>
-        <form>
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" v-model="title"><br/>
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" v-model="firstName"><br/>
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" v-model="lastName"><br/>
-                <label for="folk">Folk:</label>
-                <input type="text" id="folk" name="folk" v-model="folk"><br/>
-                <label for="class">Class:</label>
-                <input type="text" id="class" name="class" v-model="classType"><br/>
-                <label for="appearance">Appearance:</label>
-                <input type="text" id="appearance" name="appearance" v-model="appearance"><br/>
-                <label for="personality">Personality:</label>
-                <input type="text" id="personality" name="personality" v-model="personality"><br/>
-                <label for="equipment">Equipment:</label>
-                <input type="text" id="equipment" name="equipment" v-model="equipment"><br/>
-                <label for="speech">Speech:</label>
-                <input type="text" id="speech" name="speech" v-model="speech"><br/>
-                <button type="submit" @click="createNpc">Submit</button>
-        </form>
+        <div class="npc-form">
+            <button class="form-call-dismiss" @click="callForm">
+                <div class="arrow-left"></div>
+            </button>
+            <div class="form-container">
+                <h2>Create an NPC</h2>
+                <form>
+                    <label for="title">Title:<br/>
+                        <input type="text" id="title" name="title" v-model="title">
+                    </label>
+                    <label for="firstName">First Name:<br/>
+                        <input type="text" id="firstName" name="firstName" v-model="firstName">
+                    </label>
+                    <label for="lastName">Last Name:<br/>
+                        <input type="text" id="lastName" name="lastName" v-model="lastName">
+                    </label>
+                    <label for="folk">Folk:<br/>
+                        <input type="text" id="folk" name="folk" v-model="folk">
+                    </label>
+                    <label for="class">Class:<br/>
+                        <input type="text" id="class" name="class" v-model="classType">
+                    </label>
+                    <label for="appearance">Appearance:<br/>
+                        <input type="text" id="appearance" name="appearance" v-model="appearance">
+                    </label>
+                    <label for="personality">Personality:<br/>
+                        <input type="text" id="personality" name="personality" v-model="personality">
+                    </label>
+                    <label for="equipment">Equipment:<br/>
+                        <input type="text" id="equipment" name="equipment" v-model="equipment">
+                    </label>
+                    <label for="speech">Speech:<br/>
+                        <input type="text" id="speech" name="speech" v-model="speech">
+                    </label>
+                    <button type="submit" @click="createNpc">Create!</button>
+                </form>
+            </div>
+        </div>
 </template>
 
 <style scoped>
+    .npc-form {
+        position:absolute;
+        left: calc(100% - 2rem);
+        transform: translate(0%, 5%);
+        display: flex;
+        align-items: start;
+        transition: 
+            left 1s,
+            transform 1s;
+    }
+
+    .form-call-dismiss {
+        width: 2rem;
+        flex: none;
+        aspect-ratio: 1 / 1;
+        background-color: var(--vt-c-green);
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .arrow-left {
+        width: 0; 
+        height: 0; 
+        border-top: 0.6rem solid transparent;
+        border-bottom: 0.6rem solid transparent; 
+        border-right: 0.6rem solid black; 
+        transform: rotate(0);
+        transition: transform 1s;
+    }
+
+    .form-container {
+        padding: 1rem 2rem;
+        color: var(--vt-c-white-soft);
+        background-color: var(--vt-c-black-soft);
+    }
+
+    form {
+        width: 20rem;
+        padding: 1rem 0;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    form label {
+        margin-bottom: 1rem;
+    }
+
+    form input {
+        width: 100%;
+        height: 2rem;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        border: none;
+        padding-inline-start: 1rem;
+    }
+
+    form button {
+        margin-top: 1rem;
+        height: 2rem;
+        padding: 0.5rem;
+        background-color: var(--vt-c-green);
+        color: var(--vt-c-whlite-soft);
+        border: none;
+        border-radius: 1rem;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    form button:hover {
+        background-color: var(--vt-c-green-dark);
+    }
 
 </style>
