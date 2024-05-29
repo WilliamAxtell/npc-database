@@ -13,7 +13,10 @@
 
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  background-color: ;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 
 body {
@@ -21,9 +24,24 @@ body {
   box-sizing: border-box;
 }
 
-h2 {
+body::before {
+  content: '';
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+h2, p, ul, li {
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
+}
+
+ul {
+  padding-inline-start: calc(1rem + 3px);
 }

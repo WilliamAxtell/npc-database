@@ -12,7 +12,8 @@ const fetchNpc = async () => {
         'Content-Type': 'application/json'
         },
         method: 'GET'
-        }).then((response) => response.json());
+        })
+        .then((response) => response.json());
     } catch (err) {
         console.log(err);
     }
@@ -20,19 +21,53 @@ const fetchNpc = async () => {
 
 onMounted(async () => {
     npcList.value = await fetchNpc();
-    npcs.value = npcList.value['npcs'];
-});
+    npcs.value = npcList.value['npcs'].sort((a, b) => {
+              if (a.firstName < b.firstName) {
+                  return -1;
+              }
+
+              if (a.firstName == b.firstName) {
+                  if (a.lastName < b.lastName) {
+                      return -1;
+                  }
+              }
+            });
+    });
 
 </script>
 
 <template>
   <div v-for="npc in npcs">
-    <div>
-      <h2><span v-if="npc.title">{{ npc.title }}</span> {{ npc.firstName }} {{ npc.lastName }}</h2>
+    <div class="card">
+      <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }} {{ npc.lastName }}</h2>
+      <p class="card-subtitle">{{ npc.folk }} - {{ npc.class }}</p>
+      <ul>
+        <li v-if="npc.appearance"><span class="card-list-title">Appearance: </span>{{ npc.appearance }}</li>
+        <li v-if="npc.personality"><span class="card-list-title">Personality: </span>{{ npc.personality }}</li>
+        <li v-if="npc.equipment"><span class="card-list-title">Equipment: </span>{{ npc.equipment }}</li>
+        <li v-if="npc.speech"><span class="card-list-title">Speech: </span>{{ npc.speech }}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <style scoped>
 
+.card {
+  background-color: var(--vt-c-green);
+  padding: 1rem;
+  box-shadow: 0.2rem 0.2rem 0.8rem #000;
+}
+
+.card-subtitle {
+  font-style: italic;
+}
+
+.card-list-title {
+  font-weight: bold;
+}
+
+li {
+  margin: 0.5rem 0;
+}
 </style>

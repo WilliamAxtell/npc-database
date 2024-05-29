@@ -16,11 +16,11 @@
 
     function callForm() {
         if (formOffset.value) {
-            document.querySelector('.npc-form').style.left = 'calc(50% - 2rem)';
+            document.querySelector('.npc-form').style.left = 'calc(50% - 4rem)';
             document.querySelector('.npc-form').style.transform = 'translate(-50%, 5%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(180deg)';
         } else {
-            document.querySelector('.npc-form').style.left = 'calc(100% - 2rem)';
+            document.querySelector('.npc-form').style.left = 'calc(100% - 4rem)';
             document.querySelector('.npc-form').style.transform = 'translate(0%, 5%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(0)';
         }
@@ -110,7 +110,7 @@
 <style scoped>
     .npc-form {
         position:absolute;
-        left: calc(100% - 2rem);
+        left: calc(100% - 4rem);
         transform: translate(0%, 5%);
         display: flex;
         align-items: start;
@@ -120,7 +120,7 @@
     }
 
     .form-call-dismiss {
-        width: 2rem;
+        width: 4rem;
         flex: none;
         aspect-ratio: 1 / 1;
         background-color: var(--vt-c-green);
@@ -133,9 +133,9 @@
     .arrow-left {
         width: 0; 
         height: 0; 
-        border-top: 0.6rem solid transparent;
-        border-bottom: 0.6rem solid transparent; 
-        border-right: 0.6rem solid black; 
+        border-top: 1rem solid transparent;
+        border-bottom: 1rem solid transparent; 
+        border-right: 1rem solid black; 
         transform: rotate(0);
         transition: transform 1s;
     }

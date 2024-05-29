@@ -14,7 +14,11 @@ const NPCSchema = new mongoose.Schema({
         required: [true,'Last Name is required'],
         trim: true,
     },
-    folk:String,
+    folk: {
+        type: String,
+        required: [true,'Folk is required'],
+        trim: true,
+    },
     class:String,
     appearance:String,
     personality:String,
