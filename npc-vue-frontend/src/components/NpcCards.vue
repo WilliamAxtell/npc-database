@@ -56,7 +56,7 @@ const deleteNpc = async (id) => {
   <div v-for="npc in npcs">
     <div class="card">
       <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }} {{ npc.lastName }}</h2>
-      <p class="card-subtitle">{{ npc.folk }} - {{ npc.class }}</p>
+      <p class="card-subtitle">{{ npc.folk }}<span v-if="npc.class">{{" - " + npc.class }}</span></p>
       <ul>
         <li v-if="npc.appearance"><span class="card-list-title">Appearance: </span>{{ npc.appearance }}</li>
         <li v-if="npc.personality"><span class="card-list-title">Personality: </span>{{ npc.personality }}</li>
@@ -65,8 +65,8 @@ const deleteNpc = async (id) => {
         <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li>
       </ul>
       <div class="card-btn-container">
-        <button class="card-btn">Edit</button>
-        <button class="card-btn" @click="deleteNpc(npc._id)">Delete</button>
+        <button id="card-btn-1" class="card-btn">Edit</button>
+        <button id="card-btn-2" class="card-btn" @click="deleteNpc(npc._id)">Delete</button>
       </div>
     </div>
   </div>
@@ -101,5 +101,17 @@ li {
   border: none;
   height: 2rem;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;  
+}
+
+#card-btn-1 {
+  background-color: white;
+  color: black;
+  }
+
+#card-btn-2 {
+  background-color: firebrick;
+  color:white;
 }
 </style>

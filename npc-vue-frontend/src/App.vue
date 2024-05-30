@@ -1,10 +1,10 @@
 <script setup>
 import NpcCards from './components/NpcCards.vue';
-import Form from './components/Form.vue';
+import FormCont from './components/FormCont.vue';
 </script>
 
 <template>
-  <Form />
+  <FormCont />
   <div class="vue-container">
     <NpcCards />
   </div>
