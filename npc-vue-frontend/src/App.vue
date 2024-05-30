@@ -18,6 +18,7 @@ import Form from './components/Form.vue';
   /* This is better for small screens, once min() is better supported */
   /* grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); */
   gap: 1rem;
-
+  align-items: stretch;
+  margin: 1rem;
 }
 </style>

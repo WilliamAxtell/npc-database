@@ -34,6 +34,19 @@ onMounted(async () => {
             });
     });
 
+const deleteNpc = async (id) => {
+    try {
+        return await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        method: 'DELETE'
+        })
+        .then((response) => response.json());
+    } catch (err) {
+        console.log(err);
+    }
+};
 </script>
 
 <template>
@@ -46,7 +59,12 @@ onMounted(async () => {
         <li v-if="npc.personality"><span class="card-list-title">Personality: </span>{{ npc.personality }}</li>
         <li v-if="npc.equipment"><span class="card-list-title">Equipment: </span>{{ npc.equipment }}</li>
         <li v-if="npc.speech"><span class="card-list-title">Speech: </span>{{ npc.speech }}</li>
+        <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li>
       </ul>
+      <div class="card-btn-container">
+        <button class="card-btn">Edit</button>
+        <button class="card-btn" @click="deleteNpc(npc._id)">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -54,9 +72,9 @@ onMounted(async () => {
 <style scoped>
 
 .card {
-  background-color: var(--vt-c-green);
   padding: 1rem;
   box-shadow: 0.2rem 0.2rem 0.8rem #000;
+  background-color: var(--vt-c-green);
 }
 
 .card-subtitle {
@@ -69,5 +87,16 @@ onMounted(async () => {
 
 li {
   margin: 0.5rem 0;
+}
+
+.card-btn-container {
+  margin: 1rem -1rem -1rem -1rem;
+}
+.card-btn{
+  display: inline-block;
+  width: 50%;
+  border: none;
+  height: 2rem;
+  cursor: pointer;
 }
 </style>

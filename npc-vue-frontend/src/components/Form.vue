@@ -12,6 +12,8 @@
     const equipment = ref('');
     const speech = ref('');
 
+    const modalToggle = ref(false);
+
     const formOffset = ref(true);
 
     function callForm() {
@@ -25,9 +27,11 @@
             document.querySelector('.arrow-left').style.transform = 'rotate(0)';
         }
         formOffset.value = !formOffset.value;
+        modalToggle.value = !modalToggle.value;
     }
 
     function createNpc(e) {
+        e.preventDefault();
         const npc = {
             "title": capUp(title.value).trim(),
             "firstName": capUp(firstName.value).trim(),
@@ -67,6 +71,7 @@
 </script>
 
 <template>
+    <div v-if="modalToggle" class="modal"></div>
         <div class="npc-form">
             <button class="form-call-dismiss" @click="callForm">
                 <div class="arrow-left"></div>
@@ -104,12 +109,22 @@
                     <button type="submit" @click="createNpc">Create!</button>
                 </form>
             </div>
-        </div>
+        </div>    
 </template>
 
 <style scoped>
+    .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
     .npc-form {
         position:absolute;
+        top: 0;
+        left: 0;
         left: calc(100% - 4rem);
         transform: translate(0%, 5%);
         display: flex;
