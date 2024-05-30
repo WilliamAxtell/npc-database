@@ -50,7 +50,7 @@
             method: 'POST',
             body: JSON.stringify(npc)
         }).then((response) => response.json());
-        clearForms();
+        window.location.reload();
     }
 
     function clearForms() {

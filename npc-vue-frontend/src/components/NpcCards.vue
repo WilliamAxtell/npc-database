@@ -42,7 +42,10 @@ const deleteNpc = async (id) => {
         },
         method: 'DELETE'
         })
-        .then((response) => response.json());
+        .then((response) => {
+          window.location.reload();
+          return response.json();
+        });
     } catch (err) {
         console.log(err);
     }
