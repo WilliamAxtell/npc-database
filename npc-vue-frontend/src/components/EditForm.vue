@@ -1,8 +1,6 @@
 <script setup>
     import { ref } from 'vue';
 
-    const modalToggle = ref(false);
-
     const title = ref('');
     const firstName = ref('');
     const lastName = ref('');
@@ -39,13 +37,21 @@
 
     function capUp(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
-    }    
+    }
+    
+    function closeEditForm() {
+        document.querySelector('.edit-form-modal').style.display = 'none';
+        document.querySelector('.npc-edit-form').style.display = 'none';
+    }
 </script>
 
 <template>
     <div class="edit-form-modal"></div>
         <div class="npc-edit-form">
             <div class="form-container">
+                <div class="edit-form-dismiss">
+                    <button @click="closeEditForm">X</button>
+                </div>
                 <h2 class="edit-form-title"></h2>
                 <form>
                     <label for="title">Title:<br/>
@@ -100,6 +106,23 @@
         align-items: start;
     }
 
+    .edit-form-dismiss {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .edit-form-dismiss button {
+        background-color: var(--vt-c-green);
+        color: var(--vt-c-white-soft);
+        height: 2rem;
+        aspect-ratio: 1 / 1;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;        
+    }
+
     .form-container {
         padding: 1rem 2rem;
         color: var(--vt-c-white-soft);
@@ -140,7 +163,7 @@
         font-weight: 700;
     }
 
-    form button:hover {
+    form button:hover,  .edit-form-dismiss button:hover {
         background-color: var(--vt-c-green-dark);
     }    
 </style>
