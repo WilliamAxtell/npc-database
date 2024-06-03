@@ -1,5 +1,4 @@
 <script setup>
-
 import { ref, onMounted } from 'vue';
 
 const npcList = ref([]);
@@ -50,6 +49,12 @@ const deleteNpc = async (id) => {
         console.log(err);
     }
 };
+
+const editNpc = (id, firstName) => {
+  document.querySelector('.edit-form-modal').style.display = 'block';
+  document.querySelector('.npc-edit-form').style.display = 'flex';
+  document.querySelector('.edit-form-title').textContent = `Edit ${firstName}`;
+};
 </script>
 
 <template>
@@ -65,7 +70,7 @@ const deleteNpc = async (id) => {
         <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li>
       </ul>
       <div class="card-btn-container">
-        <button id="card-btn-1" class="card-btn">Edit</button>
+        <button id="card-btn-1" class="card-btn" @click="editNpc(npc._id, npc.firstName)">Edit</button>
         <button id="card-btn-2" class="card-btn" @click="deleteNpc(npc._id)">Delete</button>
       </div>
     </div>
@@ -77,7 +82,7 @@ const deleteNpc = async (id) => {
 .card {
   padding: 1rem;
   box-shadow: 0.2rem 0.2rem 0.8rem #000;
-  background-color: var(--vt-c-green);
+  background-color: var(--vt-c-white-soft);
 }
 
 .card-subtitle {
@@ -106,7 +111,7 @@ li {
 }
 
 #card-btn-1 {
-  background-color: white;
+  background-color: var(--vt-c-green);
   color: black;
   }
 

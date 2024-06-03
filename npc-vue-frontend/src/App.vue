@@ -1,6 +1,8 @@
 <script setup>
 import NpcCards from './components/NpcCards.vue';
 import FormCont from './components/FormCont.vue';
+import EditForm from './components/EditForm.vue';
+
 </script>
 
 <template>
@@ -8,6 +10,7 @@ import FormCont from './components/FormCont.vue';
   <div class="vue-container">
     <NpcCards />
   </div>
+  <EditForm />
 </template>
 
 <style scoped>

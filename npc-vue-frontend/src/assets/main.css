@@ -23,6 +23,7 @@ body {
   overflow-x: hidden;
   box-sizing: border-box;
   margin: 0;
+  background-color: var(--vt-c-white-soft);
 }
 
 body::before {
