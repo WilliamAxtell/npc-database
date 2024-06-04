@@ -1,35 +1,66 @@
 <script setup>
     import { ref } from 'vue';
 
-    const title = ref('');
-    const firstName = ref('');
-    const lastName = ref('');
-    const folk = ref('');
-    const classType = ref('');
-    const appearance = ref('');
-    const personality = ref('');
-    const equipment = ref('');
-    const speech = ref('');
+    const editTitle = ref('');
+    const editFirstName = ref('');
+    const editLastName = ref('');
+    const editFolk = ref('');
+    const editClass = ref('');
+    const editAppearance = ref('');
+    const editPersonality = ref('');
+    const editEquipment = ref('');
+    const editSpeech = ref('');
+    const editAlive = ref(true);
 
-    function createNpc(e) {
-        console.log('createNpc');
+    function updateNpc(e) {
         e.preventDefault();
+        console.log('editNpc');
+        const id = document.querySelector('#edit-id').value;
         const npc = {
-            "title": capUp(title.value).trim(),
-            "firstName": capUp(firstName.value).trim(),
-            "lastName": capUp(lastName.value).trim(),
-            "folk": capUp(folk.value).trim(),
-            "class": capUp(classType.value).trim(),
-            "appearance": appearance.value.trim(),
-            "personality": personality.value.trim(),
-            "equipment": equipment.value.trim(),
-            "speech": speech.value.trim()
+            alive: editAlive.value,
         };
-        fetch('http://localhost:3000/api/v1/npcs', {
+        
+        if(editTitle.value !== '') {
+            npc["title"] = capUp(editTitle.value).trim();
+        }
+
+        if(editFirstName.value !== '') {
+            npc["firstName"] = capUp(editFirstName.value).trim();
+        }
+
+        if(editLastName.value !== '') {
+            npc["lastName"] = capUp(editLastName.value).trim();
+        }
+
+        if(editFolk.value !== '') {
+            npc["folk"] = capUp(editFolk.value).trim();
+        }
+
+        if(editClass.value !== '') {
+            npc["class"] = capUp(editClass.value).trim();
+        }
+
+        if(editAppearance.value !== '') {
+            npc["appearance"] = capUp(editAppearance.value).trim();
+        }
+
+        if(editPersonality.value !== '') {
+            npc["personality"] = capUp(editPersonality.value).trim();
+        }
+
+        if(editEquipment.value !== '') {
+            npc["equipment"] = capUp(editEquipment.value).trim();
+        }
+
+        if(editSpeech.value !== '') {
+            npc["speech"] = capUp(editSpeech.value).trim();
+        }
+        
+        fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify(npc)
         }).then((response) => response.json());
         window.location.reload();
@@ -50,38 +81,42 @@
         <div class="npc-edit-form">
             <div class="form-container">
                 <div class="edit-form-dismiss">
+                    <h2 class="edit-form-title"></h2>
                     <button @click="closeEditForm">X</button>
                 </div>
-                <h2 class="edit-form-title"></h2>
                 <form>
-                    <label for="title">Title:<br/>
-                        <input type="text" id="title" name="title" v-model="title">
+                    <input type="hidden" id="edit-id" name="id" value="">
+                    <label for="edit-title">Title:<br/>
+                        <input type="text" id="edit-title" name="title" v-model="editTitle">
                     </label>
-                    <label for="firstName">First Name:<br/>
-                        <input type="text" id="firstName" name="firstName" v-model="firstName">
+                    <label for="edit-firstName">First Name:<br/>
+                        <input type="text" id="edit-firstName" name="firstName" v-model="editFirstName">
                     </label>
-                    <label for="lastName">Last Name:<br/>
-                        <input type="text" id="lastName" name="lastName" v-model="lastName">
+                    <label for="edit-lastName">Last Name:<br/>
+                        <input type="text" id="edit-lastName" name="lastName" v-model="editLastName">
                     </label>
-                    <label for="folk">Folk:<br/>
-                        <input type="text" id="folk" name="folk" v-model="folk">
+                    <label for="edit-folk">Folk:<br/>
+                        <input type="text" id="edit-folk" name="folk" v-model="editFolk">
                     </label>
-                    <label for="class">Class:<br/>
-                        <input type="text" id="class" name="class" v-model="classType">
+                    <label for="edit-class">Class:<br/>
+                        <input type="text" id="edit-class" name="class" v-model="editClass">
                     </label>
-                    <label for="appearance">Appearance:<br/>
-                        <input type="text" id="appearance" name="appearance" v-model="appearance">
+                    <label for="edit-appearance">Appearance:<br/>
+                        <input type="text" id="edit-appearance" name="appearance" v-model="editAppearance">
                     </label>
-                    <label for="personality">Personality:<br/>
-                        <input type="text" id="personality" name="personality" v-model="personality">
+                    <label for="edit-personality">Personality:<br/>
+                        <input type="text" id="edit-personality" name="personality" v-model="editPersonality">
                     </label>
-                    <label for="equipment">Equipment:<br/>
-                        <input type="text" id="equipment" name="equipment" v-model="equipment">
+                    <label for="edit-equipment">Equipment:<br/>
+                        <input type="text" id="edit-equipment" name="equipment" v-model="editEquipment">
                     </label>
-                    <label for="speech">Speech:<br/>
-                        <input type="text" id="speech" name="speech" v-model="speech">
+                    <label for="edit-speech">Speech:<br/>
+                        <input type="text" id="edit-speech" name="speech" v-model="editSpeech">
                     </label>
-                    <button type="submit" @click="createNpc">Update!</button>
+                    <label for="edit-alive">Alive:<br/>
+                        <input type="checkbox" id="edit-alive" name="edit-alive" v-model="editAlive">
+                    </label>
+                    <button type="submit" @click="updateNpc">Update!</button>
                 </form>
             </div>
         </div>    
@@ -94,7 +129,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
     }
     .npc-edit-form {
@@ -109,7 +144,7 @@
     .edit-form-dismiss {
         width: 100%;
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
     }
 
     .edit-form-dismiss button {
@@ -165,5 +200,16 @@
 
     form button:hover,  .edit-form-dismiss button:hover {
         background-color: var(--vt-c-green-dark);
+    }
+    
+    #edit-alive {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 0 auto 0;
+        accent-color: var(--vt-c-green);
+    }
+
+    #alive:hover {
+        accent-color: var(--vt-c-green-dark);
     }    
 </style>

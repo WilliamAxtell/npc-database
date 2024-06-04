@@ -14,16 +14,21 @@
     const personality = ref('');
     const equipment = ref('');
     const speech = ref('');
+    const alive = ref(true);
 
     function callForm() {
         if (formOffset.value) {
             document.querySelector('.npc-form').style.left = 'calc(50% - 2rem)';
-            document.querySelector('.npc-form').style.transform = 'translate(-50%, 5%)';
+            document.querySelector('.npc-form').style.transform = 'translate(-50%, 0%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(180deg)';
+            document.querySelector('.form-container').style.display = 'block';
         } else {
             document.querySelector('.npc-form').style.left = 'calc(100% - 4rem)';
-            document.querySelector('.npc-form').style.transform = 'translate(0%, 5%)';
+            document.querySelector('.npc-form').style.transform = 'translate(0%, 0%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(0)';
+            setTimeout(() => {
+                document.querySelector('.form-container').style.display = 'none';
+            }, 1000);
         }
         formOffset.value = !formOffset.value;
         modalToggle.value = !modalToggle.value;
@@ -42,7 +47,8 @@
             "appearance": appearance.value.trim(),
             "personality": personality.value.trim(),
             "equipment": equipment.value.trim(),
-            "speech": speech.value.trim()
+            "speech": speech.value.trim(),
+            "alive": alive.value,
         };
         fetch('http://localhost:3000/api/v1/npcs', {
             headers: {
@@ -95,6 +101,9 @@
                     <label for="speech">Speech:<br/>
                         <input type="text" id="speech" name="speech" v-model="speech">
                     </label>
+                    <label for="alive">Alive:<br/>
+                        <input type="checkbox" id="alive" name="alive" v-model="alive">
+                    </label>
                     <button type="submit" @click="createNpc">Create!</button>
                 </form>
             </div>
@@ -107,14 +116,14 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
     }
     .npc-form {
         position:absolute;
         top: 0;
         left: calc(100% - 4rem);
-        transform: translate(0%, 5%);
+        transform: translate(0%, 0%);
         display: flex;
         align-items: start;
         transition: 
@@ -147,6 +156,7 @@
         padding: 1rem 2rem;
         color: var(--vt-c-white-soft);
         background-color: var(--vt-c-black-soft);
+        display: none;
     }
 
     form {
@@ -185,5 +195,16 @@
 
     form button:hover {
         background-color: var(--vt-c-green-dark);
-    }    
+    }
+    
+    #alive {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 0 auto 0;
+        accent-color: var(--vt-c-green);
+    }
+
+    #alive:hover {
+        accent-color: var(--vt-c-green-dark);
+    }
 </style>

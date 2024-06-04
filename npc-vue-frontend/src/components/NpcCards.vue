@@ -54,6 +54,7 @@ const editNpc = (id, firstName) => {
   document.querySelector('.edit-form-modal').style.display = 'block';
   document.querySelector('.npc-edit-form').style.display = 'flex';
   document.querySelector('.edit-form-title').textContent = `Edit ${firstName}`;
+  document.querySelector('#edit-id').value = id;
 };
 </script>
 
@@ -61,13 +62,14 @@ const editNpc = (id, firstName) => {
   <div v-for="npc in npcs">
     <div class="card">
       <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }} {{ npc.lastName }}</h2>
+      <p class="card-deceased" v-if="!npc.alive">(Deceased)</p>
       <p class="card-subtitle">{{ npc.folk }}<span v-if="npc.class">{{" - " + npc.class }}</span></p>
       <ul>
         <li v-if="npc.appearance"><span class="card-list-title">Appearance: </span>{{ npc.appearance }}</li>
         <li v-if="npc.personality"><span class="card-list-title">Personality: </span>{{ npc.personality }}</li>
         <li v-if="npc.equipment"><span class="card-list-title">Equipment: </span>{{ npc.equipment }}</li>
         <li v-if="npc.speech"><span class="card-list-title">Speech: </span>{{ npc.speech }}</li>
-        <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li>
+        <!-- <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li> -->
       </ul>
       <div class="card-btn-container">
         <button id="card-btn-1" class="card-btn" @click="editNpc(npc._id, npc.firstName)">Edit</button>
@@ -83,6 +85,10 @@ const editNpc = (id, firstName) => {
   padding: 1rem;
   box-shadow: 0.2rem 0.2rem 0.8rem #000;
   background-color: var(--vt-c-white-soft);
+}
+
+.card-deceased {
+  font-weight: bold;
 }
 
 .card-subtitle {

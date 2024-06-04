@@ -24,6 +24,9 @@ const NPCSchema = new mongoose.Schema({
     personality:String,
     equipment:String,
     speech:String,
+    alive: {
+        type: Boolean,
+    },
 });
 
 module.exports = mongoose.model('npc', NPCSchema);

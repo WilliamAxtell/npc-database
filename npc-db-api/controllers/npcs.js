@@ -25,7 +25,7 @@ const updateNpc = asyncWrapper(async (req, res) => {
     const {id:npcID} = req.params;
     const npc = await NPC.findOneAndUpdate({_id: npcID}, req.body, {
         new: true,
-        runValidators: true
+        runValidators: false
     });
     if(!npc) {
         return next(createCustomError(`No npc with id: ${npcID} found`, 404));

@@ -15,7 +15,6 @@ import EditForm from './components/EditForm.vue';
 
 <style scoped>
 .vue-container {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   /* This is better for small screens, once min() is better supported */
