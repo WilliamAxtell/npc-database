@@ -50,11 +50,21 @@ const deleteNpc = async (id) => {
     }
 };
 
-const editNpc = (id, firstName) => {
+const editNpc = (npc) => {
   document.querySelector('.edit-form-modal').style.display = 'block';
   document.querySelector('.npc-edit-form').style.display = 'flex';
-  document.querySelector('.edit-form-title').textContent = `Edit ${firstName}`;
-  document.querySelector('#edit-id').value = id;
+  document.querySelector('.edit-form-title').textContent = `Edit ${npc.firstName}`;
+  document.querySelector('#edit-id').value = npc._id;
+  document.querySelector('#edit-title').value = npc.title;
+  document.querySelector('#edit-first-name').value = npc.firstName;
+  document.querySelector('#edit-last-name').value = npc.lastName;
+  document.querySelector('#edit-folk').value = npc.folk;
+  document.querySelector('#edit-class').value = npc.class;
+  document.querySelector('#edit-appearance').value = npc.appearance;
+  document.querySelector('#edit-personality').value = npc.personality;
+  document.querySelector('#edit-equipment').value = npc.equipment;
+  document.querySelector('#edit-speech').value = npc.speech;
+  document.querySelector('#edit-alive').checked = npc.alive;
 };
 </script>
 
@@ -72,7 +82,7 @@ const editNpc = (id, firstName) => {
         <!-- <li v-if="npc._id"><span class="card-list-title">ID: </span>{{ npc._id }}</li> -->
       </ul>
       <div class="card-btn-container">
-        <button id="card-btn-1" class="card-btn" @click="editNpc(npc._id, npc.firstName)">Edit</button>
+        <button id="card-btn-1" class="card-btn" @click="editNpc(npc)">Edit</button>
         <button id="card-btn-2" class="card-btn" @click="deleteNpc(npc._id)">Delete</button>
       </div>
     </div>
