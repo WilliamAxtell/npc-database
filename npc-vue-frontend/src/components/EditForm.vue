@@ -38,7 +38,7 @@
 </script>
 
 <template>
-    <div class="edit-form-modal"></div>
+    <div class="edit-form-modal">
         <div class="npc-edit-form">
             <div class="form-container">
                 <div class="edit-form-dismiss">
@@ -80,26 +80,21 @@
                     <button type="submit" @click="updateNpc">Update!</button>
                 </form>
             </div>
-        </div>    
+        </div>
+    </div>        
 </template>
 
 <style scoped>
     .edit-form-modal {
         display: none;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100%;
+        min-height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-    }
-    .npc-edit-form {
-        position:absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        align-items: start;
     }
 
     .edit-form-dismiss {

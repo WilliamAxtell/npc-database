@@ -51,7 +51,7 @@ const deleteNpc = async (id) => {
 };
 
 const editNpc = (npc) => {
-  document.querySelector('.edit-form-modal').style.display = 'block';
+  document.querySelector('.edit-form-modal').style.display = 'flex';
   document.querySelector('.npc-edit-form').style.display = 'flex';
   document.querySelector('.edit-form-title').textContent = `Edit ${npc.firstName}`;
   document.querySelector('#edit-id').value = npc._id;
