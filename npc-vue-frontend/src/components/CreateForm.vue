@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue';
 
-    const modalToggle = ref(false);
+    //const modalToggle = ref(false);
 
     const formOffset = ref(true);
 
@@ -18,17 +18,19 @@
 
     function callForm() {
         if (formOffset.value) {
+            document.querySelector('.modal').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
             document.querySelector('.npc-form').style.left = 'calc(50% - 2rem)';
             document.querySelector('.npc-form').style.transform = 'translate(-50%, 0%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(180deg)';
-            document.querySelector('.form-container').style.display = 'block';
+            //document.querySelector('.form-container').style.display = 'block';
         } else {
+            document.querySelector('.modal').style.backgroundColor = 'transparent';
             document.querySelector('.npc-form').style.left = 'calc(100% - 4rem)';
             document.querySelector('.npc-form').style.transform = 'translate(0%, 0%)';
             document.querySelector('.arrow-left').style.transform = 'rotate(0)';
-            setTimeout(() => {
-                document.querySelector('.form-container').style.display = 'none';
-            }, 1000);
+            // setTimeout(() => {
+            //     document.querySelector('.form-container').style.display = 'none';
+            // }, 1000);
         }
         formOffset.value = !formOffset.value;
         modalToggle.value = !modalToggle.value;
@@ -66,7 +68,7 @@
 </script>
 
 <template>
-    <div v-if="modalToggle" class="modal"></div>
+    <div class="modal">
         <div class="npc-form">
             <button class="form-call-dismiss" @click="callForm">
                 <div class="arrow-left"></div>
@@ -107,17 +109,15 @@
                     <button type="submit" @click="createNpc">Create!</button>
                 </form>
             </div>
-        </div>    
+        </div>
+    </div>            
 </template>
 
 <style scoped>
     .modal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        position: relative;
+        width: 100%;
+        background-color: transparent;
     }
     .npc-form {
         position:absolute;
@@ -125,7 +125,7 @@
         left: calc(100% - 4rem);
         transform: translate(0%, 0%);
         display: flex;
-        align-items: start;
+        align-items: center;
         transition: 
             left 1s,
             transform 1s;
@@ -156,7 +156,7 @@
         padding: 1rem 2rem;
         color: var(--vt-c-white-soft);
         background-color: var(--vt-c-black-soft);
-        display: none;
+        display: block;
     }
 
     form {

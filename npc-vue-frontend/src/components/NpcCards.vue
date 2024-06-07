@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 const npcList = ref([]);
 const npcs = ref([]);
+const searchQuery = ref('');
 
 const fetchNpc = async () => {
     try {
@@ -66,10 +67,21 @@ const editNpc = (npc) => {
   document.querySelector('#edit-speech').value = npc.speech;
   document.querySelector('#edit-alive').checked = npc.alive;
 };
+
+const filteredNpcs = computed(() => {
+  return npcs.value.filter(npc => 
+    npc.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+    npc.lastName.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
 </script>
 
 <template>
-  <div v-for="npc in npcs">
+  <div class="card-search">
+    <input type="text" v-model="searchQuery" placeholder="Filter NPCs by name...">
+  </div>
+  <div class="vue-container">
+  <div v-for="npc in filteredNpcs">
     <div class="card">
       <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }} {{ npc.lastName }}</h2>
       <p class="card-deceased" v-if="!npc.alive">(Deceased)</p>
@@ -87,9 +99,39 @@ const editNpc = (npc) => {
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
+
+.card-search {
+  background-color: var(--vt-c-black-soft);
+  box-shadow: 0.2rem 0.2rem 0.8rem #000;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.vue-container {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+  /* This is better for small screens, once min() is better supported */
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 1rem;
+  align-items: stretch;
+  margin: 1rem;
+}
+
+.card-search input {
+  width: 100%;
+  /* height: 2.5rem; */
+  border-radius: 1rem;
+  box-sizing: border-box;
+  border: none;
+  padding-inline-start: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
 
 .card {
   padding: 1rem;
@@ -128,7 +170,7 @@ li {
 
 #card-btn-1 {
   background-color: var(--vt-c-green);
-  color: black;
+  color: white;
   }
 
 #card-btn-2 {
