@@ -1,6 +1,6 @@
 <script setup>
 
-    function updateNpc(e) {
+    async function updateNpc(e) {
         e.preventDefault();
         console.log('editNpc');
         const id = document.querySelector('#edit-id').value;
@@ -17,7 +17,7 @@
             alive: document.getElementById("edit-alive").checked,
         };
         
-        fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
+        await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
