@@ -37,7 +37,7 @@
     }
 
 
-    function createNpc(e) {
+    async function createNpc(e) {
         console.log('createNpc');
         e.preventDefault();
         const npc = {
@@ -52,7 +52,7 @@
             "speech": speech.value.trim(),
             "alive": alive.value,
         };
-        fetch('http://localhost:3000/api/v1/npcs', {
+        await fetch('http://localhost:3000/api/v1/npcs', {
             headers: {
                 'Content-Type': 'application/json'
             },
