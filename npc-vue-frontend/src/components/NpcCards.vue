@@ -35,20 +35,16 @@ onMounted(async () => {
     });
 
 const deleteNpc = async (id) => {
-    try {
-        return await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        method: 'DELETE'
-        })
-        .then((response) => {
-          window.location.reload();
-          return response.json();
-        });
-    } catch (err) {
-        console.log(err);
-    }
+  await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
+  })
+  .then((response) => {
+    return response.json();
+  });
+  window.location.reload();
 };
 
 const editNpc = (npc) => {
