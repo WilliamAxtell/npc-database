@@ -54,7 +54,7 @@
             "speech": speech.value.trim(),
             "alive": alive.value,
         };
-        await fetch('http://localhost:3000/api/v1/npcs', {
+        await fetch('https://npc-database-backend.onrender.com/api/v1/npcs', {
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -19,7 +19,7 @@
             alive: document.getElementById("edit-alive").checked,
         };
         
-        await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
+        await fetch(`https://npc-database-backend.onrender.com/api/v1/npcs/${id}`, {
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -7,7 +7,7 @@ const searchQuery = ref('');
 
 const fetchNpc = async () => {
     try {
-        return await fetch('http://localhost:3000/api/v1/npcs', {
+        return await fetch('https://npc-database-backend.onrender.com/api/v1/npcs', {
         headers: {
         'Content-Type': 'application/json'
         },
@@ -35,7 +35,7 @@ onMounted(async () => {
     });
 
 const deleteNpc = async (id) => {
-  await fetch(`http://localhost:3000/api/v1/npcs/${id}`, {
+  await fetch(`https://npc-database-backend.onrender.com/api/v1/npcs/${id}`, {
     headers: {
       'Content-Type': 'application/json'
     },
