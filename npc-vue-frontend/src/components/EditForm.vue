@@ -2,7 +2,9 @@
 
     async function updateNpc(e) {
         e.preventDefault();
-        console.log('editNpc');
+        if (!editValidator()) {
+            return;
+        }
         const id = document.querySelector('#edit-id').value;
         const npc = {
             title: capUp(document.querySelector('#edit-title').value).trim(),
@@ -34,6 +36,22 @@
     function closeEditForm() {
         document.querySelector('.edit-form-modal').style.display = 'none';
         document.querySelector('.npc-edit-form').style.display = 'none';
+    }
+
+    function editValidator() {
+        if (document.querySelector('#edit-first-name').value === '') {
+            alert('First Name cannot be empty!');
+            return false;
+        }
+        if (document.querySelector('#edit-last-name').value === '') {  
+            alert('Last Name cannot be empty!');
+            return false;
+            }
+        if (document.querySelector('#edit-folk').value === '') {
+            alert('Folk cannot be empty!');
+            return false;
+        }
+        return true;
     }
 </script>
 

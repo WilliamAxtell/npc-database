@@ -38,8 +38,10 @@
 
 
     async function createNpc(e) {
-        console.log('createNpc');
         e.preventDefault();
+        if (!createValidator()) {
+            return;
+        }
         const npc = {
             "title": capUp(title.value).trim(),
             "firstName": capUp(firstName.value).trim(),
@@ -64,6 +66,22 @@
 
     function capUp(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    
+    function createValidator() {
+        if (document.querySelector('#firstName').value === '') {
+            alert('First Name cannot be empty!');
+            return false;
+        }
+        if (document.querySelector('#lastName').value === '') {  
+            alert('Last Name cannot be empty!');
+            return false;
+            }
+        if (document.querySelector('#folk').value === '') {
+            alert('Folk cannot be empty!');
+            return false;
+        }
+        return true;
     }    
 </script>
 
