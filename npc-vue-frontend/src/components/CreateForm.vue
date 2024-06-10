@@ -73,10 +73,6 @@
             alert('First Name cannot be empty!');
             return false;
         }
-        if (document.querySelector('#lastName').value === '') {  
-            alert('Last Name cannot be empty!');
-            return false;
-            }
         if (document.querySelector('#folk').value === '') {
             alert('Folk cannot be empty!');
             return false;

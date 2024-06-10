@@ -79,7 +79,7 @@ const filteredNpcs = computed(() => {
   <div class="vue-container">
   <div v-for="npc in filteredNpcs">
     <div class="card">
-      <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }} {{ npc.lastName }}</h2>
+      <h2><span v-if="npc.title">{{ npc.title + " " }}</span>{{ npc.firstName }}<span v-if="npc.lastName">{{" " + npc.lastName }}</span></h2>
       <p class="card-deceased" v-if="!npc.alive">(Deceased)</p>
       <p class="card-subtitle">{{ npc.folk }}<span v-if="npc.class">{{" - " + npc.class }}</span></p>
       <ul>
